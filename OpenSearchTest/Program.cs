@@ -20,6 +20,7 @@ namespace OpenSearchTest
                 // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             var openSearchUri = new Uri("https://search-mytestdomain-5hba2rt273ckarshnxsegh2qye.aos.us-east-1.on.aws");
             var pool = new SingleNodeConnectionPool(openSearchUri);
@@ -29,9 +30,14 @@ namespace OpenSearchTest
             builder.Services.AddSingleton<IOpenSearchClient>(client);
             builder.Services.AddScoped<IOpenSearchService, OpenSearchService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<ISearchServiceOpenApi, SearchServiceOpenApi>();
+            builder.Services.AddScoped<IUploadDataOpenSearchApi, UploadDataOpenSearchApi>();
+            builder.Services.AddHttpClient<SearchServiceOpenApi>();
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

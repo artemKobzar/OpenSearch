@@ -57,8 +57,6 @@ namespace OpenSearchTest.Services
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = new List<SearchData>();
-                long currentSize = 0;
-                var maxBulkSize = 10 * 1024 * 1024;
 
                 while(await csv.ReadAsync())
                 {
@@ -92,10 +90,3 @@ namespace OpenSearchTest.Services
         }
     }
 }
-//var bulkDescriptor = new BulkDescriptor();
-
-//foreach (var record in records)
-//{
-//    bulkDescriptor.Index<SearchData>(os => os.Document(record));
-//}
-//var response = await _client.BulkAsync(bulkDescriptor);

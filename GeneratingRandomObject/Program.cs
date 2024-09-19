@@ -7,7 +7,7 @@
             string filePath = @"C:\Users\Artem\Desktop\TextForSearch.txt";
             GeneratingService generatingService = new GeneratingService(filePath);
 
-            IEnumerable<RandomClass> records = generatingService.GenerateRecords(1000);
+            IEnumerable<RandomClass> records = generatingService.GenerateRecords(500000);
 
             string csvFilePath = @"C:\Users\Artem\Desktop\output.csv"; // Path to save the CSV file
             CsvHelper csvHelperService = new CsvHelper();
